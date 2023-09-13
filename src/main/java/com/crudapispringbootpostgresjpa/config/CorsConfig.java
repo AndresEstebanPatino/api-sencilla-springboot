@@ -3,24 +3,20 @@ package com.crudapispringbootpostgresjpa.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class CorsConfig {
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-
-        // Configura las reglas de CORS según tus necesidades
-        config.addAllowedOrigin("*"); // Permite solicitudes desde cualquier origen (esto puede ser ajustado)
-        config.addAllowedMethod("GET, POST, PUT, DELETE, OPTIONS"); // Métodos HTTP permitidos
-        config.addAllowedHeader("*"); // Cabeceras permitidas
-
-        source.registerCorsConfiguration("/**", config);
-
-        return new CorsFilter(source);
+@EnableWebMvc
+public class CorsConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry
+                .addMapping("/api/v1/libros") // Ruta de la API que deseas permitir
+                .allowedOrigins("hhttp://localhost:5173/") // Orígenes permitidos (puedes cambiarlo según tu aplicación de React)
+                .allowedMethods("GET", "POST", "PUT", "DELETE") // Métodos HTTP permitidos
+                .allowCredentials(true) // Permitir cookies y encabezados personalizados
+                .maxAge(3600); // Duración en segundos para mantener la configuración de CORS en caché en el navegador
     }
 }
