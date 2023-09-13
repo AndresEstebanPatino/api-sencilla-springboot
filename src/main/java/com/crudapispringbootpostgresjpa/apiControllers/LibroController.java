@@ -33,6 +33,7 @@ public class LibroController {
 
     @PutMapping("/{id}")
     public void updateBook(@PathVariable Integer id, @RequestBody Libro libro ){
+
         libroService.update(id, libro);
     }
 
