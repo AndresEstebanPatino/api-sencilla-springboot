@@ -23,13 +23,6 @@ public class LibroController {
         this.libroService = libroService;
     }
 
-    @RequestMapping("/error")
-    public String handleError() {
-        // Personaliza la lógica para mostrar tu página de error personalizada.
-        return "error"; // "error" es el nombre de la vista de tu página de error.
-    }
-
-
     @GetMapping
     public List<Libro> getBookController(){
         return libroService.getBook();
