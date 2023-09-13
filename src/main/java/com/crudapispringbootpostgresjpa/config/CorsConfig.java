@@ -14,7 +14,7 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry
                 .addMapping("/api/v1/libros") // Ruta de la API que deseas permitir
-                .allowedOrigins("http://localhost:5173/") // Corrige la URL del origen permitido
+                .allowedOrigins("http://localhost:5173") // Corrige la URL del origen permitido
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Métodos HTTP permitidos
                 .allowCredentials(true) // Permitir cookies y encabezados personalizados
                 .maxAge(3600); // Duración en segundos para mantener la configuración de CORS en caché en el navegador
