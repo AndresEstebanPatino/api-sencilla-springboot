@@ -2,7 +2,9 @@ package com.crudapispringbootpostgresjpa.apiControllers;
 
 import com.crudapispringbootpostgresjpa.domain.models.Libro;
 import com.crudapispringbootpostgresjpa.domain.services.LibroService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,11 +24,20 @@ public class LibroController {
 
         this.libroService = libroService;
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<Libro> getLibroById(@PathVariable Integer id) {
+        Libro libro = libroService.libroById(id);
+        if (libro != null) {
+            return ResponseEntity.ok(libro);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
     @GetMapping
     public List<Libro> getBookController(){
         return libroService.getBook();
     }
+
 
     @PostMapping
     public void createBook(@RequestBody Libro libro){

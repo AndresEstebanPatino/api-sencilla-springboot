@@ -23,16 +23,21 @@ public class LibroService {
         return libroRepository.findAll(); // SELECT * FROM libros
     }
 
+    public Libro libroById(Integer id){
+    Optional<Libro> libroByID = (libroRepository.findById(id));
+    return libroByID.orElse(null);
+    }
     public void newLibro(Libro libro) {
         libroRepository.save(libro);
     }
 
     public void update(Integer id, Libro libro) {
 
-        Optional<Libro> bookByID = (libroRepository.findById(id)); //busco el libro por el id
+        Libro bookExistente = libroById(id);
+        if (bookExistente == null ) {
+            System.out.println("erorr");
+        }
 
-        if (bookByID.isPresent()) {
-            Libro bookExistente = bookByID.get();
 
             bookExistente.setName(libro.getName());
             bookExistente.setAutor(libro.getAutor());
@@ -40,7 +45,7 @@ public class LibroService {
 
             libroRepository.save(bookExistente);
         }
-    }
+
 
     public void deleteBook(Integer id, Libro libro) {
         boolean existe = libroRepository.existsById(id);
